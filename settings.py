@@ -3,6 +3,8 @@ MONGO_PORT = 27017
 MONGO_DBNAME = "eve"
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
+# PUBLIC_METHODS = ['GET']
+# PUBLIC_ITEM_METHODS = ['GET']
 DATE_FORMAT = "%m/%d/%Y"
 # DATE_FORMAT = (default: a, %d %b %Y %H:%M:%S)
 # VERSIONING = True
@@ -25,21 +27,28 @@ DATE_FORMAT = "%m/%d/%Y"
 
 schema = {
     'archiveHoldingDocument': {
-        'type': 'string', ## defaults to string no matter what?
+        'type': 'string',
+        'documentation': "The name of the library or archive that holds the document."
     },
     'callNumber': {
         'type': 'string',
         'unique': True,
-        'required': True
+        'required': True,
+        'documentation': "The call number of the document as specified by the holding institution."
     },
     'containingCollection': {
-        'type': 'string'
+        'type': 'string',
+        'documentation': "The name of the collection the document resides in."
     },
     'dataCataloger': {
-        'type': 'string'
+        'type': 'string',
+        'documentation': "Your unique identifier as a cataloger. May be your name, your initials, \
+                        or some other unique word or phrase of your choice."
     },
     'dimensions': {
-        'type': 'string' # could change if divided into 2 fields
+        'type': 'string', # could change if divided into 2 fields
+        'documentation': "A comma-separated 2-tuple containing the \
+                        length and width of the document in centimeters."
     },
     #'dimensions': {
     #   'type': 'dict',
@@ -55,39 +64,54 @@ schema = {
         'allowed': ['Playbill', 'London Stage', \
                     'Yorkshire Stage', 'Other Compendia', \
                     'Periodical Advertisement', 'Periodical Review']
+        'documentation': "The document type. One of Playbill / London Stage / Yorkshire Stage / \
+                        Other Compendia / Periodical Advertisement / Periodical Review"
     },
     'pageNumber': {
-        'type': 'integer' # account for Roman numerals?
+        'type': 'integer', # account for Roman numerals?
+        'documentation': "If the record is contained in another paginated document, the starting page of \
+                        the record in that document."
     },
     'periodicalTitle': {
-        'type': 'string'
+        'type': 'string',
+        'documentation': "The name of the containing periodical (e.g. for advertisements). We may develop \
+                        a controlled vocabulary for this."
     },
     'persistentUrl': {
-        'type': 'string'
+        'type': 'string',
+        'documentation': "A persistent URL where identifying information about the document may be found."
     },
     'printedArea': {
-        'type': 'string' # could change if divided into 2 fields
+        'type': 'string', # could change if divided into 2 fields (see 'dimensions')
+        'documentation': "A comma-separated 2-tuple containing the length and width of the printed area of \
+                        the document in centimeters."
     },
     'advertisements': {
         'type': 'list',
         'schema': {
-            'type': 'string'
+            'type': 'string',
+            'documentation': "The text of each advertisement, as given by the document, to be entered at the \
+                            discretion of the cataloger." #fixed spelling mistake 'discretion'
         }
     },
     'announcements': {
         'type': 'list',
         'schema': {
-            'type': 'string'
+            'type': 'string',
+            'documentation': "The text of each announcement, as given by the document, to be entered at the \
+                            discretion of the cataloger." #same spelling mistake as above, changed 'advertisement' to 'announcement'
         }
     },
     'documentPrinter': {
         'type': 'dict',
         'schema': {
             'location': {
-                'type': 'string'
+                'type': 'string',
+                'documentation': "The name of the printer."
             },
             'name': {
-                'type': 'string'
+                'type': 'string',
+                'documentation': "The city where the document was printed."
             }
         }
     },
@@ -100,44 +124,50 @@ schema = {
             'type': 'dict',
             'schema': {
                 'date': {
-                    'type': 'datetime'
+                    'type': 'datetime',
+                    'documentation': "The exact date of the performance. For ranges of dates, create a separate Show \
+                                    Record for each date."
                 },
                 'doorsOpen': {
-                    'type': 'string' # or datetime?
+                    'type': 'string', # or datetime?
+                    'documentation': "The time when doors open, if listed, using \
+                                    a 24-hour clock."
                 },
                 'location': {
-                    'type': 'string'
+                    'type': 'string',
+                    'documentation': "The geographical location of the performance, exactly as given by the document."
                 },
                 'performanceBegins': {
-                    'type': 'string'
+                    'type': 'string',
+                    'documentation': "The time when the performance begins, \
+                                    using a 24-hour clock."
                 },
                 'theaterCompany': {
-                    'type': 'string'
+                    'type': 'string',
+                    'documentation': "The name of the theater company, exactly \
+                                    as given by the document."
                 },
                 'stageManager': {
-                    'type': 'string'
+                    'type': 'string',
+                    'documentation': "The name of the stage manager, if present \
+                                    in the document, exactly as given."
                 },
                 'venue': {
-                    'type': 'string'
+                    'type': 'string',
+                    'documentation': "The venue of the performance, exactly as given by the document."
                 },
                 'featuredAttractionsForShow': {
-                    'type': 'list',
-                    'schema': {
-                        'type': 'dict',
-                        'schema': {
-                            'attraction': {
-                                'type': 'string'
-                            },
-                            'isInterpolation': {
-                                'type': 'boolean'
-                            }
-                        }
-                    }
+                    'type': 'string',
+                    'documentation': "Any featured attractions described in the \
+                                    document, exactly as given."
                 },
                 'notes': {
                     'type': 'list',
                     'schema': {
-                        'type': 'string'
+                        'type': 'string',
+                        'documentation':  "Notes describing compelling or otherwise \
+                                        important details from the document that \
+                                        will not be captured by any other field."
                     }
                 },
                 'occasions': {
@@ -146,18 +176,24 @@ schema = {
                         'type': 'dict',
                         'schema': {
                             'occasionAsStated': {
-                                'type': 'string'
+                                'type': 'string',
+                                'documentation': "The occasion for an occasional performance, \
+                                                exactly as given by the document."
                             },
                             'occasionType': {
                                 'type': 'string',
                                 'allowed': ["Command Performance", "Benefit Performance", \
                                             "Charitable Benefit Performance", "Occasional \
                                             Performance"],
+                                'documentation': "The type of occasional performance. One of Command performance / \
+                                                Benefit Performance / Charitable Benefit Performance / Occasional Performance."
                             },
                             'beneficiary': {
                                 'type': 'list',
                                 'schema': {
                                     'type': 'string',
+                                    'documentation': "One or more people, ideally denoted by \
+                                                    URIs from a controlled vocabulary."
                                     #'dependencies': {
                                     #    'occasionType': {
                                     #        ['Benefit Performance', 'Charitable Benefit \
@@ -170,6 +206,8 @@ schema = {
                                 'type': 'list',
                                 'schema': {
                                     'type': 'string',
+                                    'documentation': "One or more people, ideally denoted by \
+                                                    URIs from a controlled vocabulary."
                                     #'dependencies': {
                                     #    'occasionType': {
                                     #        ['Command Performance', 'Occasional Performance']
@@ -186,17 +224,27 @@ schema = {
                         'type': 'dict',
                         'schema': {
                             'genreClaim': {
-                                'type': 'string'
+                                'type': 'string',
+                                'documentation': "The genre claim, exactly as given by the document."
                             },
                             'kindOfPerformance': {
                                 'type': 'string',
-                                'allowed': ["Main Piece", "After Piece"]
+                                'allowed': ["Main Piece", "After Piece"],
+                                'documentation': "Kind of performance. May either be \
+                                                Main Piece or After Piece."
                             },
                             'orderOfPerformance': {
-                                'type': 'integer'
+                                'type': 'integer',
+                                'documentation': "An integer describing the position of \
+                                                this performance within the larger show. \
+                                                Starts at 1. Interpolations should be \
+                                                numbered in order, and are assumed to \
+                                                occur within the last full piece listed."
                             },
                             'title': {
-                                'type': 'string'
+                                'type': 'string',
+                                'documentation': "The title of the work being performed, \
+                                                exactly as given by the document."
                             },
                             'contributors': {
                                 'type': 'list',
@@ -204,10 +252,12 @@ schema = {
                                     'type': 'dict',
                                     'schema': {
                                         'contributorName': {
-                                            'type': 'string'
+                                            'type': 'string',
+                                            'documentation': "The name of the contributor."
                                         },
                                         'contributorType': {
-                                            'type': 'string'
+                                            'type': 'string',
+                                            'documentation': "The type of contributor (e.g. Scene Painter, Director, etc.)."
                                             #'allowed': ["Playwright", "Composer", \
                                             #            "Scene Painter", "Dance Master", \
                                             #            "Set Designer"]
@@ -215,10 +265,23 @@ schema = {
                                     }
                                 }
                             },
-                            'featuredAttractions': {
+                            'performanceFeaturedAttraction': {
                                 'type': 'list',
                                 'schema': {
-                                    'type': 'string'
+                                    'type': 'dict',
+                                    'schema': {
+                                        'attraction': {
+                                            'type': 'string',
+                                            'documentation': "Any featured attractions described in the \
+                                                            document, exactly as given."
+                                        },
+                                        'isInterpolation': {
+                                            'type': 'boolean',
+                                            'documentation': "An indicator set to true if the document \
+                                                            identifies this as an interpolation \
+                                                            within the larger performance."
+                                        }
+                                    }
                                 }
                             },
                             'performers': {
@@ -227,25 +290,38 @@ schema = {
                                     'type': 'dict',
                                     'schema': {
                                         'performerName': {
-                                            'type': 'string'
+                                            'type': 'string',
+                                            'documentation': "The name of the performer."
                                         },
                                         'roleNotes': {
-                                            'type': 'string'
+                                            'type': 'string',
+                                            'documentation': "Notes on the role or performer, exactly as given by the document."
                                         },
                                         'role': {
-                                            'type': 'string'
+                                            'type': 'string',
+                                            'documentation': "The name of the performer's role."
                                         },
                                         'newPerformerNotes': {
                                             'type': 'dict',
                                             'schema': {
                                                 'newPerformer': {
-                                                    'type': 'boolean'
+                                                    'type': 'boolean',
+                                                    'documentation': "An indicator set to true if the document \
+                                                                    identifies this as the performer's first \
+                                                                    appearance at this venue."
                                                 },
                                                 'newPerformerOrigin': {
-                                                    'type': 'string'
+                                                    'type': 'string',
+                                                    'documentation': "The performer's previous venue, if given \
+                                                                    by the document, and if the document \
+                                                                    identifies this as the performer's first \
+                                                                    appearance at this venue."
                                                 },
                                                 'newRole': {
-                                                    'type': 'boolean'
+                                                    'type': 'boolean',
+                                                    'documentation': "An indicator set to true if the document \
+                                                                    identifies this as the performer's first \
+                                                                    appearance in this role."
                                                 }
                                             }
                                         }
@@ -259,37 +335,58 @@ schema = {
                     'type': 'dict',
                     'schema': {
                         'currency': {
-                            'type': 'string'
+                            'type': 'string',
+                            'documentation': "The national currency in use. Currently one of UK / US."
                         },
                         'boxPrice': {
-                            'type': 'number' # could also be float or integer
+                            'type': 'number', # could also be float or integer
+                            'documentation': "The cost of a box seat, as measured using the smallest possible unit of currency."
                         },
                         'secondBoxPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a second box seat, as measured using the smallest possible unit \
+                                            of currency."
                         },
                         'pitPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a pit seat, as \
+                                            measured using the smallest possible unit \
+                                            of currency."
                         },
                         'secondPitPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a second pit seat, as \
+                                            measured using the smallest possible unit \
+                                            of currency."
                         },
                         'galleryPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a second pit seat, as measured using the smallest possible unit \
+                                            of currency."
                         },
                         'secondGalleryPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a second gallery seat, as measured using the smallest possible \
+                                            unit of currency."
                         },
                         'upperGalleryPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a upper gallery seat, as measured using the smallest possible \
+                                            unit of currency."
                         },
                         'secondUpperGalleryPrice': {
-                            'type': 'number'
+                            'type': 'number',
+                            'documentation': "The cost of a second upper gallery seat, \
+                                            as measured using the smallest possible \
+                                            unit of currency."
                         },
                         'toBeHad': {
-                            'type': 'string'
+                            'type': 'string',
+                            'documentation': "The name of the ticketing agent or agents."
                         },
                         'ticketingNotes': {
-                            'type': 'string'
+                            'type': 'string',
+                            'documentation': "Additional notes about ticketing."
                         }
                     }
                 }
