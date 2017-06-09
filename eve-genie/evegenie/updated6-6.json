@@ -1,0 +1,210 @@
+{
+  "ephemeralRecord": {
+    "archiveHoldingDocument": "",
+    "callNumber": "",
+    "containingCollection": "",
+    "dataCataloger": "",
+    "dimensions": "",
+    "documentType": "",
+    "periodicalTitle": "",
+    "persistentUrl": "",
+    "printedArea": "",
+    "advertisements": [
+      "",
+      ""
+    ],
+    "announcements": [
+      "",
+      ""
+    ],
+    "documentPrinter": {
+      "location": "",
+      "name": ""
+    },
+    "shows": [
+      {
+        "date": "",
+        "doorsOpen": "",
+        "location": "",
+        "performanceBegins": "",
+        "theaterCompany": "",
+        "venue": "",
+        "featuredAttractionsForShow": [
+          "",
+          ""
+        ],
+        "notes": [
+          ""
+        ],
+        "occasions": [
+          {
+            "occasionAsStated": "",
+            "occasionType": "",
+            "beneficiary": [
+              "",
+              ""
+            ],
+            "occasioner": [
+              "",
+              ""
+            ]
+          },
+          {
+            "occasionAsStated": "",
+            "occasionType": "",
+            "beneficiary": [
+              ""
+            ],
+            "occasioner": [
+              ""
+            ]
+          }
+        ],
+        "performances": [
+          {
+            "genreClaim": "",
+            "kindOfPerformance": "",
+            "orderOfPerformance": "",
+            "title": "",
+            "contributors": [
+              {
+                "contributorName": "",
+                "contributorType": ""
+              },
+              {
+                "contributorName": "",
+                "contributorType": ""
+              }
+            ],
+            "featuredAttractions": [
+              "",
+              ""
+            ],
+            "performers": [
+              {
+                "performerName": "",
+                "performerNotes": "",
+                "role": "",
+                "newPerformerNotes": {
+                  "newPerformer": false,
+                  "newPerformerOrigin": "",
+                  "newRole": false
+                }
+              },
+              {
+                "performerName": "",
+                "performerNotes": "",
+                "role": "",
+                "newPerformerNotes": {
+                  "newPerformer": false,
+                  "newPerformerOrigin": "",
+                  "newRole": false
+                }
+              }
+            ]
+          },
+          {
+            "genreClaim": "",
+            "kindOfPerformance": "",
+            "orderOfPerformance": "",
+            "title": "",
+            "contributors": [
+              {
+                "contributorName": "",
+                "contributorType": ""
+              }
+            ],
+            "featuredAttractions": [
+              ""
+            ],
+            "performers": [
+              {
+                "performerName": "",
+                "performerNotes": "",
+                "role": "",
+                "newPerformerNotes": {
+                  "newPerformer": false,
+                  "newPerformerOrigin": "",
+                  "newRole": false
+                }
+              }
+            ]
+          }
+        ],
+        "ticketing": {
+          "boxPrice": "",
+          "costsOrFees": "",
+          "currency": "",
+          "galleryPrice": "",
+          "toBeHad": "",
+          "totalReceipts": "",
+          "upperGalleryPrice": ""
+        }
+      },
+      {
+        "date": "",
+        "doorsOpen": "",
+        "location": "",
+        "performanceBegins": "",
+        "theaterCompany": "",
+        "venue": "",
+        "featuredAttractionsForShow": [
+          ""
+        ],
+        "notes": [
+          ""
+        ],
+        "occasions": [
+          {
+            "occasionAsStated": "",
+            "occasionType": "",
+            "beneficiary": [
+              ""
+            ],
+            "occasioner": [
+              ""
+            ]
+          }
+        ],
+        "performances": [
+          {
+            "genreClaim": "",
+            "kindOfPerformance": "",
+            "orderOfPerformance": "",
+            "title": "",
+            "contributors": [
+              {
+                "contributorName": "",
+                "contributorType": ""
+              }
+            ],
+            "featuredAttractions": [
+              ""
+            ],
+            "performers": [
+              {
+                "performerName": "",
+                "performerNotes": "",
+                "role": "",
+                "newPerformerNotes": {
+                  "newPerformer": false,
+                  "newPerformerOrigin": "",
+                  "newRole": false
+                }
+              }
+            ]
+          }
+        ],
+        "ticketing": {
+          "boxPrice": "",
+          "costsOrFees": "",
+          "currency": "",
+          "galleryPrice": "",
+          "toBeHad": "",
+          "totalReceipts": "",
+          "upperGalleryPrice": ""
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "ephemeralRecord": {
+    "archiveHoldingDocument": "a",
+    "callNumber": "a0",
+    "containingCollection": "a",
+    "dataCataloger": "a",
+    "dimensions": "5,7",
+    "documentType": "a",
+    "periodicalTitle": "a",
+    "persistentUrl": "a",
+    "printedArea": "a",
+    "advertisements": [
+      "a",
+      "a"
+    ],
+    "announcements": [
+      "a",
+      "a"
+    ],
+    "documentPrinter": {
+      "location": "a",
+      "name": "a"
+    },
+    "shows": [
+      {
+        "date": "9888-09-07",
+        "doorsOpen": "04:00",
+        "location": "a",
+        "performanceBegins": "15:00",
+        "theaterCompany": "a",
+        "venue": "a",
+        "featuredAttractionsForShow": [
+          "a",
+          "a"
+        ],
+        "notes": [
+          "a"
+        ],
+        "occasions": [
+          {
+            "occasionAsStated": "a",
+            "occasionType": "a",
+            "beneficiary": [
+              "a",
+              "a"
+            ],
+            "occasioner": [
+              "a",
+              "a"
+            ]
+          },
+          {
+            "occasionAsStated": "a",
+            "occasionType": "a",
+            "beneficiary": [
+              "a"
+            ],
+            "occasioner": [
+              "a"
+            ]
+          }
+        ],
+        "performances": [
+          {
+            "genreClaim": "a",
+            "kindOfPerformance": "a",
+            "orderOfPerformance": "2",
+            "title": "a",
+            "contributors": [
+              {
+                "contributorName": "a",
+                "contributorType": "a"
+              },
+              {
+                "contributorName": "a",
+                "contributorType": "a"
+              }
+            ],
+            "featuredAttractions": [
+              "a",
+              "a"
+            ],
+            "performers": [
+              {
+                "performerName": "a",
+                "performerNotes": "a",
+                "role": "a",
+                "newPerformerNotes": {
+                  "newPerformer": true,
+                  "newPerformerOrigin": "a",
+                  "newRole": true
+                }
+              },
+              {
+                "performerName": "a",
+                "performerNotes": "a",
+                "role": "a",
+                "newPerformerNotes": {
+                  "newPerformer": true,
+                  "newPerformerOrigin": "a",
+                  "newRole": true
+                }
+              }
+            ]
+          },
+          {
+            "genreClaim": "a",
+            "kindOfPerformance": "a",
+            "orderOfPerformance": "1",
+            "title": "a",
+            "contributors": [
+              {
+                "contributorName": "a",
+                "contributorType": "a"
+              }
+            ],
+            "featuredAttractions": [
+              "a"
+            ],
+            "performers": [
+              {
+                "performerName": "a",
+                "performerNotes": "a",
+                "role": "a",
+                "newPerformerNotes": {
+                  "newPerformer": true,
+                  "newPerformerOrigin": "a",
+                  "newRole": true
+                }
+              }
+            ]
+          }
+        ],
+        "ticketing": {
+          "boxPrice": "8",
+          "costsOrFees": "0",
+          "currency": "uk",
+          "galleryPrice": "4",
+          "toBeHad": "a",
+          "totalReceipts": "44",
+          "upperGalleryPrice": "11"
+        }
+      },
+      {
+        "date": "2017-06-06",
+        "doorsOpen": "08:00",
+        "location": "r",
+        "performanceBegins": "13:00",
+        "theaterCompany": "d",
+        "venue": "s",
+        "featuredAttractionsForShow": [
+          "a"
+        ],
+        "notes": [
+          "a"
+        ],
+        "occasions": [
+          {
+            "occasionAsStated": "a",
+            "occasionType": "aa",
+            "beneficiary": [
+              "a"
+            ],
+            "occasioner": [
+              "a"
+            ]
+          }
+        ],
+        "performances": [
+          {
+            "genreClaim": "a",
+            "kindOfPerformance": "a",
+            "orderOfPerformance": "3",
+            "title": "a",
+            "contributors": [
+              {
+                "contributorName": "a",
+                "contributorType": "a"
+              }
+            ],
+            "featuredAttractions": [
+              "a"
+            ],
+            "performers": [
+              {
+                "performerName": "a",
+                "performerNotes": "s",
+                "role": "a",
+                "newPerformerNotes": {
+                  "newPerformer": true,
+                  "newPerformerOrigin": "y",
+                  "newRole": true
+                }
+              }
+            ]
+          }
+        ],
+        "ticketing": {
+          "boxPrice": "5",
+          "costsOrFees": "6",
+          "currency": "yu",
+          "galleryPrice": "6",
+          "toBeHad": "f",
+          "totalReceipts": "55",
+          "upperGalleryPrice": "11"
+        }
+      }
+    ]
+  }
+}
