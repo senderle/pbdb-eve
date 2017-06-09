@@ -28,25 +28,30 @@ DATE_FORMAT = "%m/%d/%Y"
 schema = {
     'archiveHoldingDocument': {
         'type': 'string',
+        'maxlength': 200,
         'documentation': "The name of the library or archive that holds the document."
     },
     'callNumber': {
         'type': 'string',
         'unique': True,
         'required': True,
+        'maxlength': 200,
         'documentation': "The call number of the document as specified by the holding institution."
     },
     'containingCollection': {
         'type': 'string',
+        'maxlength': 200,
         'documentation': "The name of the collection the document resides in."
     },
     'dataCataloger': {
         'type': 'string',
+        'maxlength': 200,
         'documentation': "Your unique identifier as a cataloger. May be your name, your initials, \
                         or some other unique word or phrase of your choice."
     },
     'dimensions': {
         'type': 'string', # could change if divided into 2 fields
+        'maxlength': 200, # will probably change?
         'documentation': "A comma-separated 2-tuple containing the \
                         length and width of the document in centimeters."
     },
@@ -63,7 +68,8 @@ schema = {
         'type': 'string',
         'allowed': ['Playbill', 'London Stage', \
                     'Yorkshire Stage', 'Other Compendia', \
-                    'Periodical Advertisement', 'Periodical Review']
+                    'Periodical Advertisement', 'Periodical Review'],
+        'maxlength': 200,
         'documentation': "The document type. One of Playbill / London Stage / Yorkshire Stage / \
                         Other Compendia / Periodical Advertisement / Periodical Review"
     },
@@ -74,15 +80,18 @@ schema = {
     },
     'periodicalTitle': {
         'type': 'string',
+        'maxlength': 200,
         'documentation': "The name of the containing periodical (e.g. for advertisements). We may develop \
                         a controlled vocabulary for this."
     },
     'persistentUrl': {
         'type': 'string',
+        'maxlength': 200,
         'documentation': "A persistent URL where identifying information about the document may be found."
     },
     'printedArea': {
         'type': 'string', # could change if divided into 2 fields (see 'dimensions')
+        'maxlength': 200, # may also have to change
         'documentation': "A comma-separated 2-tuple containing the length and width of the printed area of \
                         the document in centimeters."
     },
@@ -90,6 +99,7 @@ schema = {
         'type': 'list',
         'schema': {
             'type': 'string',
+            'maxlength': 1000,
             'documentation': "The text of each advertisement, as given by the document, to be entered at the \
                             discretion of the cataloger." #fixed spelling mistake 'discretion'
         }
@@ -98,6 +108,7 @@ schema = {
         'type': 'list',
         'schema': {
             'type': 'string',
+            'maxlength': 1000,
             'documentation': "The text of each announcement, as given by the document, to be entered at the \
                             discretion of the cataloger." #same spelling mistake as above, changed 'advertisement' to 'announcement'
         }
@@ -107,10 +118,12 @@ schema = {
         'schema': {
             'location': {
                 'type': 'string',
+                'maxlength': 200,
                 'documentation': "The name of the printer."
             },
             'name': {
                 'type': 'string',
+                'maxlength': 200,
                 'documentation': "The city where the document was printed."
             }
         }
@@ -130,34 +143,41 @@ schema = {
                 },
                 'doorsOpen': {
                     'type': 'string', # or datetime?
+                    'maxlength': 200,
                     'documentation': "The time when doors open, if listed, using \
                                     a 24-hour clock."
                 },
                 'location': {
                     'type': 'string',
+                    'maxlength': 200,
                     'documentation': "The geographical location of the performance, exactly as given by the document."
                 },
                 'performanceBegins': {
                     'type': 'string',
+                    'maxlength': 200,
                     'documentation': "The time when the performance begins, \
                                     using a 24-hour clock."
                 },
                 'theaterCompany': {
                     'type': 'string',
+                    'maxlength': 200,
                     'documentation': "The name of the theater company, exactly \
                                     as given by the document."
                 },
                 'stageManager': {
                     'type': 'string',
+                    'maxlength': 200,
                     'documentation': "The name of the stage manager, if present \
                                     in the document, exactly as given."
                 },
                 'venue': {
                     'type': 'string',
+                    'maxlength': 200,
                     'documentation': "The venue of the performance, exactly as given by the document."
                 },
                 'featuredAttractionsForShow': {
                     'type': 'string',
+                    'maxlength': 200,
                     'documentation': "Any featured attractions described in the \
                                     document, exactly as given."
                 },
@@ -165,6 +185,7 @@ schema = {
                     'type': 'list',
                     'schema': {
                         'type': 'string',
+                        'maxlength': 1000,
                         'documentation':  "Notes describing compelling or otherwise \
                                         important details from the document that \
                                         will not be captured by any other field."
@@ -177,6 +198,7 @@ schema = {
                         'schema': {
                             'occasionAsStated': {
                                 'type': 'string',
+                                'maxlength': 200,
                                 'documentation': "The occasion for an occasional performance, \
                                                 exactly as given by the document."
                             },
@@ -185,6 +207,7 @@ schema = {
                                 'allowed': ["Command Performance", "Benefit Performance", \
                                             "Charitable Benefit Performance", "Occasional \
                                             Performance"],
+                                'maxlength': 200,
                                 'documentation': "The type of occasional performance. One of Command performance / \
                                                 Benefit Performance / Charitable Benefit Performance / Occasional Performance."
                             },
@@ -192,6 +215,7 @@ schema = {
                                 'type': 'list',
                                 'schema': {
                                     'type': 'string',
+                                    'maxlength': 200,
                                     'documentation': "One or more people, ideally denoted by \
                                                     URIs from a controlled vocabulary."
                                     #'dependencies': {
@@ -206,6 +230,7 @@ schema = {
                                 'type': 'list',
                                 'schema': {
                                     'type': 'string',
+                                    'maxlength': 200,
                                     'documentation': "One or more people, ideally denoted by \
                                                     URIs from a controlled vocabulary."
                                     #'dependencies': {
@@ -225,11 +250,13 @@ schema = {
                         'schema': {
                             'genreClaim': {
                                 'type': 'string',
+                                'maxlength': 200,
                                 'documentation': "The genre claim, exactly as given by the document."
                             },
                             'kindOfPerformance': {
                                 'type': 'string',
                                 'allowed': ["Main Piece", "After Piece"],
+                                'maxlength': 200,
                                 'documentation': "Kind of performance. May either be \
                                                 Main Piece or After Piece."
                             },
@@ -243,6 +270,7 @@ schema = {
                             },
                             'title': {
                                 'type': 'string',
+                                'maxlength': 200,
                                 'documentation': "The title of the work being performed, \
                                                 exactly as given by the document."
                             },
@@ -253,10 +281,12 @@ schema = {
                                     'schema': {
                                         'contributorName': {
                                             'type': 'string',
+                                            'maxlength': 200,
                                             'documentation': "The name of the contributor."
                                         },
                                         'contributorType': {
                                             'type': 'string',
+                                            'maxlength': 200,
                                             'documentation': "The type of contributor (e.g. Scene Painter, Director, etc.)."
                                             #'allowed': ["Playwright", "Composer", \
                                             #            "Scene Painter", "Dance Master", \
@@ -272,6 +302,7 @@ schema = {
                                     'schema': {
                                         'attraction': {
                                             'type': 'string',
+                                            'maxlength': 200,
                                             'documentation': "Any featured attractions described in the \
                                                             document, exactly as given."
                                         },
@@ -291,14 +322,17 @@ schema = {
                                     'schema': {
                                         'performerName': {
                                             'type': 'string',
+                                            'maxlength': 200,
                                             'documentation': "The name of the performer."
                                         },
                                         'roleNotes': {
                                             'type': 'string',
+                                            'maxlength': 200,
                                             'documentation': "Notes on the role or performer, exactly as given by the document."
                                         },
                                         'role': {
                                             'type': 'string',
+                                            'maxlength': 200,
                                             'documentation': "The name of the performer's role."
                                         },
                                         'newPerformerNotes': {
@@ -312,6 +346,7 @@ schema = {
                                                 },
                                                 'newPerformerOrigin': {
                                                     'type': 'string',
+                                                    'maxlength': 200,
                                                     'documentation': "The performer's previous venue, if given \
                                                                     by the document, and if the document \
                                                                     identifies this as the performer's first \
@@ -336,6 +371,7 @@ schema = {
                     'schema': {
                         'currency': {
                             'type': 'string',
+                            'maxlength': 200,
                             'documentation': "The national currency in use. Currently one of UK / US."
                         },
                         'boxPrice': {
@@ -382,10 +418,12 @@ schema = {
                         },
                         'toBeHad': {
                             'type': 'string',
+                            'maxlength': 200,
                             'documentation': "The name of the ticketing agent or agents."
                         },
                         'ticketingNotes': {
                             'type': 'string',
+                            'maxlength': 200,
                             'documentation': "Additional notes about ticketing."
                         }
                     }
