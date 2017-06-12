@@ -1,36 +1,34 @@
+# import bcrypt # need to install ``pip install py-bcrypt`` -- add to requirements.txt?
+
 from eve import Eve
-app = Eve()
 
 from eve.auth import BasicAuth
+from flask import current_app as app
 
-#from eve.io.mongo import Validator
-
-#class MyValidator(Validator):
-#    def _validate_isodd(self, isodd, field, value):
-#        if isodd and not bool(value & 1):
-#            self._error(field, "Value must be an odd number")
-
-#app = Eve(validator=MyValidator)
-#def convert(request, lookup):
-#    return int(lookup[field])
-
-class Authenticate(BasicAuth):
+class BCryptAuth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource, method):
-        if resource == 'user' and method == 'GET':
-            user = app.data.driver.db['user']
-            user = user.find_one({'username': username, 'password': password})
-            if user:
-                return True
-            else:
-                return False
-        elif resource == 'user' and method == 'POST':
-            return username == 'admin' and password == 'admin'
-        else:
-            return True
+        # use Eve's own db driver; no additional connections/resources are used
+        accounts = app.data.driver.db['accounts']
+        account = accounts.find_one({'username': username})
+        return account and \
+            bcrypt.hashpw(password, account['password']) == account['password']
 
-#if field == "dimensions" | field == "printedArea":
-#    return convert(request,lookup)
+#class Authenticate(BasicAuth):
+#    def check_auth(self, username, password, allowed_roles, resource, method):
+#        if resource == 'user' and method == 'GET':
+#            user = app.data.driver.db['user']
+#            user = user.find_one({'username': username, 'password': password})
+#            if user:
+#                return True
+#            else:
+#                return False
+#        elif resource == 'user' and method == 'POST':
+#            return username == 'admin' and password == 'admin'
+#        else:
+#            return True
+
 
 if __name__ == '__main__':
     # app = Eve(auth=Authenticate)
+    app = Eve(auth=BCryptAuth)
     app.run(host="0.0.0.0")

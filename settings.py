@@ -14,16 +14,6 @@ DATE_FORMAT = "%m/%d/%Y"
 
 
 ## 'allowed': [-1,0,1] or 'allowed': [1-10] limits to range of numbers
-## could possibly do documentation through html instead -- is it necessary to
-## incorporate it in Eve schema?
-## add 'required' constraint to callNumber?
-#
-
-## or convert using Cerberus and validator and allow_unknown and lambda?
-#def convertToInt(string):
-#    integer = int(string)
-
-
 
 schema = {
     'archiveHoldingDocument': {
@@ -433,6 +423,19 @@ schema = {
     }
 }
 
+
+accountschema =  {
+    'username': {
+        'type': 'string',
+        'required': True,
+        'unique': True,
+        },
+    'password': {
+        'type': 'string',
+        'required': True,
+    },
+},
+
 ephemeralRecord = {
     'item_title' : 'record',
     'additional_lookup': {
@@ -447,6 +450,21 @@ ephemeralRecord = {
     #'url': 'ephemeralRecord/<regex("[\w]+"):callNumber>/shows'
 #}
 
+accounts = {
+    'additional_lookup': {
+        'url': 'regex("[\w]+")',
+        'field': 'username',
+    },
+
+    # We also disable endpoint caching as we don't want client apps to
+    # cache account data.
+    'cache_control': '',
+    'cache_expires': 0,
+
+    'schema': accountschema
+}
+
 DOMAIN = {
     'ephemeralRecord': ephemeralRecord,
+    'accounts': accounts
     }
