@@ -5,6 +5,12 @@ from eve import Eve
 from eve.auth import BasicAuth
 from flask import current_app as app
 
+def create_user(documents):
+    for document in documents:
+        document['salt'] = bcrypt.gensalt().encode('utf-8')
+        password = document['password'].encode('utf-8')
+        document['password'] = bcrypt.hashpw(password, document['salt'])
+
 class BCryptAuth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource, method):
         # use Eve's own db driver; no additional connections/resources are used
@@ -13,7 +19,12 @@ class BCryptAuth(BasicAuth):
         if allowed_roles:
             lookup['roles'] = {'$in': allowed_roles}
         return account and \
-            bcrypt.hashpw(password, account['password']) == account['password']
+            bcrypt.hashpw(password.encode('utf-8'), account['salt'].encode('utf-8')) == account['password']
+            #or should it be ['salt'].decode
+
+def test_connection(self):
+    with app.app_context():
+        app.on_insert_accounts += create_user
 
 #class Authenticate(BasicAuth):
 #    def check_auth(self, username, password, allowed_roles, resource, method):
