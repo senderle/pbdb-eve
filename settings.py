@@ -434,7 +434,12 @@ accountschema =  {
         'type': 'string',
         'required': True,
     },
-},
+     'roles': {
+             'type': 'list',
+             'allowed': ['user', 'superuser', 'admin'],
+             'required': True,
+         }
+}
 
 ephemeralRecord = {
     'item_title' : 'record',
@@ -443,6 +448,7 @@ ephemeralRecord = {
         #'url': 'regex("[a-z0-9]{14}")',
         'field': 'callNumber',
     },
+    'allowed_roles': ['superuser', 'admin'],
     'schema': schema
 }
 
@@ -460,7 +466,7 @@ accounts = {
     # cache account data.
     'cache_control': '',
     'cache_expires': 0,
-
+    'allowed_roles': ['superuser', 'admin'],
     'schema': accountschema
 }
 

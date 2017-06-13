@@ -10,6 +10,8 @@ class BCryptAuth(BasicAuth):
         # use Eve's own db driver; no additional connections/resources are used
         accounts = app.data.driver.db['accounts']
         account = accounts.find_one({'username': username})
+        if allowed_roles:
+            lookup['roles'] = {'$in': allowed_roles}
         return account and \
             bcrypt.hashpw(password, account['password']) == account['password']
 
