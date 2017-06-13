@@ -459,8 +459,9 @@ ephemeralRecord = {
 #}
 
 accounts = {
-    'public_methods': ['GET', 'POST'],
-    'public_item_methods': ['GET', 'PUT'],
+    'item_title' : 'account',
+    'public_methods': ['POST'],
+    'public_item_methods': ['PUT'],
     'additional_lookup': {
         'url': 'regex("[\w]+")',
         'field': 'username',
