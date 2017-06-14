@@ -439,7 +439,13 @@ accountschema =  {
              'type': 'list',
              'allowed': ['user', 'superuser', 'admin'],
              'required': True,
-         }
+         },
+    'secret_key': {
+            'type': 'string',
+            'minlength': 5,
+            'maxlength': 20,
+        }
+
 }
 
 ephemeralRecord = {
