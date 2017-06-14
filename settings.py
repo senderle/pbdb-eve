@@ -3,8 +3,8 @@ MONGO_PORT = 27017
 MONGO_DBNAME = "eve"
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
-PUBLIC_METHODS = ['GET']
-PUBLIC_ITEM_METHODS = ['GET']
+#PUBLIC_METHODS = ['GET']
+#PUBLIC_ITEM_METHODS = ['GET']
 DATE_FORMAT = "%m/%d/%Y"
 DEBUG = True
 # DATE_FORMAT = (default: a, %d %b %Y %H:%M:%S)
@@ -457,7 +457,7 @@ ephemeralRecord = {
         #'url': 'regex("[a-z0-9]{14}")',
         'field': 'callNumber',
     },
-    'allowed_roles': ['superuser', 'admin'],
+    'allowed_roles': ['superuser', 'admin', 'user'],
     'schema': schema
 }
 
