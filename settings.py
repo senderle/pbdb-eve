@@ -6,7 +6,7 @@ MONGO_DBNAME = "eve"
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 PUBLIC_METHODS = ['GET', 'POST']
-PUBLIC_ITEM_METHODS = ['GET', 'PUT']
+PUBLIC_ITEM_METHODS = ['GET', 'PUT', 'PATCH']
 DATE_FORMAT = "%Y-%m-%d"
 DEBUG = True
 # DATE_FORMAT = (default: a, %d %b %Y %H:%M:%S)
@@ -172,7 +172,7 @@ schema = {
                     'type': 'list',
                     'schema': {
                         'type': 'string',
-                        'maxlength': 200,
+                        'maxlength': 1000,
         #            'documentation': "Any featured attractions described in the \
         #                            document, exactly as given."
                     }
@@ -298,7 +298,7 @@ schema = {
                                     'schema': {
                                         'attraction': {
                                             'type': 'string',
-                                            'maxlength': 200,
+                                            'maxlength': 1000,
         #                                    'documentation': "Any featured attractions described in the \
         #                                                    document, exactly as given."
                                         },
@@ -371,43 +371,43 @@ schema = {
         #                    'documentation': "The national currency in use. Currently one of UK / US."
                         },
                         'boxPrice': {
-                            'type': 'number', # could also be float or integer
+                            'type': 'string', # could also be float or integer
         #                    'documentation': "The cost of a box seat, as measured using the smallest possible unit of currency."
                         },
                         'secondBoxPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a second box seat, as measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'pitPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a pit seat, as \
         #                                    measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'secondPitPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a second pit seat, as \
         #                                    measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'galleryPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a second pit seat, as measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'secondGalleryPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a second gallery seat, as measured using the smallest possible \
         #                                    unit of currency."
                         },
                         'upperGalleryPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a upper gallery seat, as measured using the smallest possible \
         #                                    unit of currency."
                         },
                         'secondUpperGalleryPrice': {
-                            'type': 'number',
+                            'type': 'string',
         #                    'documentation': "The cost of a second upper gallery seat, \
         #                                    as measured using the smallest possible \
         #                                    unit of currency."
