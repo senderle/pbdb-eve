@@ -11,3 +11,9 @@ services:
       - db
   db:
     image: mongo
+    volumes:
+      - playbill:/var/lib/docker
+
+volumes:
+  playbill:
+    external: true

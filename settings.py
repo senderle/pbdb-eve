@@ -1,11 +1,13 @@
 MONGO_HOST = "db"
 MONGO_PORT = 27017
 MONGO_DBNAME = "eve"
+#MONGO_USERNAME = "admin"
+#MONGO_PASSWORD = "secret"
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
-#PUBLIC_METHODS = ['GET']
-#PUBLIC_ITEM_METHODS = ['GET']
-DATE_FORMAT = "%m/%d/%Y"
+PUBLIC_METHODS = ['GET', 'POST']
+PUBLIC_ITEM_METHODS = ['GET', 'PUT']
+DATE_FORMAT = "%Y-%m-%d"
 DEBUG = True
 # DATE_FORMAT = (default: a, %d %b %Y %H:%M:%S)
 # VERSIONING = True
@@ -65,7 +67,7 @@ schema = {
         #                Other Compendia / Periodical Advertisement / Periodical Review"
     },
     'pageNumber': {
-        'type': 'integer', # account for Roman numerals?
+        'type': 'string', # account for Roman numerals?
         #'documentation': "If the record is contained in another paginated document, the starting page of \
         #                the record in that document."
     },
@@ -167,10 +169,13 @@ schema = {
         #            'documentation': "The venue of the performance, exactly as given by the document."
                 },
                 'featuredAttractionsForShow': {
-                    'type': 'string',
-                    'maxlength': 200,
+                    'type': 'list',
+                    'schema': {
+                        'type': 'string',
+                        'maxlength': 200,
         #            'documentation': "Any featured attractions described in the \
         #                            document, exactly as given."
+                    }
                 },
                 'notes': {
                     'type': 'list',
@@ -286,7 +291,7 @@ schema = {
                                     }
                                 }
                             },
-                            'performanceFeaturedAttraction': {
+                            'featuredAttractions': {
                                 'type': 'list',
                                 'schema': {
                                     'type': 'dict',
@@ -426,24 +431,20 @@ schema = {
 
 
 accountschema =  {
-    'username': {
+    'userid': {
         'type': 'string',
         'required': True,
         'unique': True,
         },
-    'password': {
-        'type': 'string',
+    'roles': {
+        'type': 'list',
+        'allowed': ['user', 'superuser', 'admin'],
         'required': True,
-    },
-     'roles': {
-             'type': 'list',
-             'allowed': ['user', 'superuser', 'admin'],
-             'required': True,
          },
     'secret_key': {
-            'type': 'string',
-            'minlength': 5,
-            'maxlength': 20,
+        'type': 'string',
+        'required': True,
+        'unique': True
         }
 
 }
@@ -461,24 +462,24 @@ ephemeralRecord = {
     'schema': schema
 }
 
-#shows = {
-    #'url': 'ephemeralRecord/<regex("[\w]+"):callNumber>/shows'
-#}
+shows = {
+    'url': 'ephemeralRecord/<regex("[\w]+"):callNumber>/shows'
+}
 
 accounts = {
     'item_title' : 'account',
-    'public_methods': ['GET','POST'],
-    'public_item_methods': ['GET','PUT'],
+#    'public_methods': ['GET','POST'],
+#    'public_item_methods': ['GET','PUT'],
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'username',
+        'field': 'userid',
     },
 
     # We also disable endpoint caching as we don't want client apps to
     # cache account data.
     'cache_control': '',
     'cache_expires': 0,
-    'allowed_roles': ['superuser', 'admin'],
+    'allowed_roles': ['admin'],
     'schema': accountschema
 }
 
