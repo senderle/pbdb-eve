@@ -1,11 +1,13 @@
+import bcrypt
 from eve import Eve
 from eve.auth import HMACAuth
 from flask import current_app as app
 from hashlib import sha1
 import hmac
 import base64
-from eve.methods.post import post_internal
-import bcrypt
+import logging
+#from eve.methods.post import post_internal
+
 
 #bcrypt.hashpw(password, account['password'])
 
@@ -38,13 +40,37 @@ def create_user(documents):
         secret_key = document['secret_key'].encode('utf-8')
         document['secret_key'] = bcrypt.hashpw(secret_key, document['salt'])
 
+def log_every_get(resource, request, payload):
+    # custom INFO-level message is sent to the log file
+    app.logger.info('We just answered to a GET request!')
+
+def log_every_post(resource, request, payload):
+    # custom INFO-level message is sent to the log file
+    app.logger.info('We just answered to a POST request!')
+
+def log_every_patch(resource, request, payload):
+    # custom INFO-level message is sent to the log file
+    app.logger.info('We just answered to a PATCH request!')
+
+def log_every_put(resource, request, payload):
+    # custom INFO-level message is sent to the log file
+    app.logger.info('We just answered to a PUT request!')
+
+def log_every_delete(resource, request, payload):
+    # custom INFO-level message is sent to the log file
+    app.logger.info('We just answered to a DELETE request!')
+
 #to set up app context:
 #def test_connection(self, resource, method):
 #    with app.app_context():
 
 app = Eve(auth=HMACAuth)
 app.on_insert_accounts += create_user
-
+app.on_post_GET += log_every_get
+app.on_post_POST += log_every_post
+app.on_post_PATCH += log_every_patch
+app.on_post_PUT += log_every_put
+app.on_post_DELETE += log_every_delete
 #payload = {
 #    "userid": "admin",
 #    "roles": ["admin"],
@@ -56,5 +82,23 @@ app.on_insert_accounts += create_user
 #    #print(x)
 
 if __name__ == '__main__':
+
+    # enable logging to 'app.log' file
+    handler = logging.FileHandler('app.log')
+
+    # set a custom log format, and add request
+    # metadata to each log line
+    handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s '
+        '[in %(filename)s:%(lineno)d] -- ip: %(clientip)s, '
+        'url: %(url)s, method:%(method)s'))
+
+    # the default log level is set to WARNING, so
+    # we have to explictly set the logging level
+    # to INFO to get our custom message logged.
+    app.logger.setLevel(logging.INFO)
+
+    # append the handler to the default application logger
+    app.logger.addHandler(handler)
 
     app.run(debug=True, host="0.0.0.0")
