@@ -251,7 +251,7 @@ schema = {
                             },
                             'kindOfPerformance': {
                                 'type': 'string',
-                                'allowed': ["Main Piece", "After Piece"],
+                                #'allowed': ["Main Piece", "After Piece"],
                                 'maxlength': 200,
         #                        'documentation': "Kind of performance. May either be \
         #                                        Main Piece or After Piece."
@@ -371,43 +371,51 @@ schema = {
         #                    'documentation': "The national currency in use. Currently one of UK / US."
                         },
                         'boxPrice': {
-                            'type': 'string', # could also be float or integer
+                            'type': 'number', # could also be float or integer
+                            'nullable': True,
         #                    'documentation': "The cost of a box seat, as measured using the smallest possible unit of currency."
                         },
                         'secondBoxPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a second box seat, as measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'pitPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a pit seat, as \
         #                                    measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'secondPitPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a second pit seat, as \
         #                                    measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'galleryPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a second pit seat, as measured using the smallest possible unit \
         #                                    of currency."
                         },
                         'secondGalleryPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a second gallery seat, as measured using the smallest possible \
         #                                    unit of currency."
                         },
                         'upperGalleryPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a upper gallery seat, as measured using the smallest possible \
         #                                    unit of currency."
                         },
                         'secondUpperGalleryPrice': {
-                            'type': 'string',
+                            'type': 'number',
+                            'nullable': True,
         #                    'documentation': "The cost of a second upper gallery seat, \
         #                                    as measured using the smallest possible \
         #                                    unit of currency."
