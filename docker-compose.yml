@@ -12,7 +12,7 @@ services:
   db:
     image: mongo
     volumes:
-      - playbill:/var/lib/docker
+      - playbill:/data/db
 
 volumes:
   playbill:
