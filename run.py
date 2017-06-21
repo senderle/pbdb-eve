@@ -11,6 +11,7 @@ import logging
 
 #bcrypt.hashpw(password, account['password'])
 
+## HMAC Auth ###
 class HMACAuth(HMACAuth):
      def check_auth(self, userid, hmac_hash, headers, data, allowed_roles,
                    resource, method):
@@ -25,11 +26,12 @@ class HMACAuth(HMACAuth):
             # only retrieve a user if his roles match ``allowed_roles``
             lookup['roles'] = {'$in': allowed_roles}
          if user:
-             hashed_key = user['secret_key']
-             secret_key = bcrypt.hashpw(hashed_key.encode('utf-8'), user['salt'].encode('utf-8'))
+             secret_key = user['secret_key']
+        #     hashed_key = user['secret_key']
+        #     secret_key = bcrypt.hashpw(hashed_key.encode('utf-8'), user['salt'])
          # in this implementation we only hash request data, ignoring the
          # headers.
-         return user and  hmac.new(str(secret_key), str(data), sha1).hexdigest() == hmac_hash
+         return user and  hmac.new(str(secret_key).encode('utf-8'), str(userid).encode('utf-8'), sha1).hexdigest() == hmac_hash
 
 
 def create_user(documents):
@@ -39,6 +41,7 @@ def create_user(documents):
         document['salt'] = bcrypt.gensalt().encode('utf-8')
         secret_key = document['secret_key'].encode('utf-8')
         document['secret_key'] = bcrypt.hashpw(secret_key, document['salt'])
+
 
 def log_every_get(resource, request, payload):
     # custom INFO-level message is sent to the log file
@@ -60,17 +63,23 @@ def log_every_delete(resource, request, payload):
     # custom INFO-level message is sent to the log file
     app.logger.info('We just answered to a DELETE request!')
 
+def oplog_extras(resource, entries):
+    for entry in entries:
+        entry['extra'] = {'r': 'resource'}
+
 #to set up app context:
 #def test_connection(self, resource, method):
 #    with app.app_context():
 
+#app = Eve(auth=HMACAuth)
 app = Eve(auth=HMACAuth)
-app.on_insert_accounts += create_user
-app.on_post_GET += log_every_get
-app.on_post_POST += log_every_post
-app.on_post_PATCH += log_every_patch
-app.on_post_PUT += log_every_put
-app.on_post_DELETE += log_every_delete
+#app.on_insert_accounts += create_user
+#app.on_post_GET += log_every_get
+#app.on_post_POST += log_every_post
+#app.on_post_PATCH += log_every_patch
+#app.on_post_PUT += log_every_put
+#app.on_post_DELETE += log_every_delete
+#app.on_oplog_push += oplog_extras
 #payload = {
 #    "userid": "admin",
 #    "roles": ["admin"],

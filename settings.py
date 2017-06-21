@@ -8,7 +8,11 @@ ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 PUBLIC_METHODS = ['GET', 'POST']
 PUBLIC_ITEM_METHODS = ['GET', 'PUT', 'PATCH']
 DATE_FORMAT = "%Y-%m-%d"
+IF_MATCH = False
 DEBUG = True
+#OPLOG = True
+#OPLOG_ENDPOINT = "log"
+#OPLOG_RETURN_EXTRA_FIELD = True
 # DATE_FORMAT = (default: a, %d %b %Y %H:%M:%S)
 # VERSIONING = True
 # VERSIONING = (default: False)
@@ -444,16 +448,21 @@ accountschema =  {
         'required': True,
         'unique': True,
         },
+    'secret_key': {
+        'type': 'string',
+        'required': True,
+        'unique': True
+        },
     'roles': {
         'type': 'list',
         'allowed': ['user', 'superuser', 'admin'],
         'required': True,
          },
-    'secret_key': {
-        'type': 'string',
-        'required': True,
-        'unique': True
-        }
+#    'secret_key': {
+#        'type': 'string',
+#        'required': True,
+#        'unique': True
+#        }
 
 }
 
@@ -491,7 +500,13 @@ accounts = {
     'schema': accountschema
 }
 
+
 DOMAIN = {
     'ephemeralRecord': ephemeralRecord,
-    'accounts': accounts
+    'accounts': accounts,
+#    'oplog' : {
+#        'url': 'log',
+#        'datasource': {
+#            'source': 'myapilog'
+#            }
     }
