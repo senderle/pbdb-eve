@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Playbill</title>
+  </head>
+  <body>
+    <div id="dynamic-content"></div>
+    <script type="text/javascript">
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://159.203.127.128:5000/ephemeralRecord', true);
+    xhr.setRequestHeader('Authorization', 'test:432671e52cf6a0fb6cd16641b0061bf008a35c90');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function () {
+        // do something to response
+        document.getElementById("dynamic-content").innerHTML = this.responseText;
+        console.log(this.responseText);
+    };
+    xhr.send('{"callNumber": "132", "archiveHoldingDocument": "London"}');
+    </script>
+  </body>
+</html>

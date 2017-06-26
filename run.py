@@ -1,7 +1,7 @@
 import bcrypt
 from eve import Eve
 from eve.auth import HMACAuth
-from flask import current_app as app
+from flask import render_template, current_app as app
 from hashlib import sha1
 import hmac
 import base64
@@ -72,7 +72,7 @@ def oplog_extras(resource, entries):
 #    with app.app_context():
 
 #app = Eve(auth=HMACAuth)
-app = Eve(auth=HMACAuth)
+app = Eve(__name__, auth=HMACAuth, template_folder='templates')
 #app.on_insert_accounts += create_user
 #app.on_post_GET += log_every_get
 #app.on_post_POST += log_every_post
@@ -86,6 +86,9 @@ app = Eve(auth=HMACAuth)
 #    "secret_key": "1234567890"
 #}
 
+@app.route('/something')
+def something():
+    return render_template('something.html')
 #with app.test_request_context():
 #    x = post_internal('accounts', payload)
 #    #print(x)
