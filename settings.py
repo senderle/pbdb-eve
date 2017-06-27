@@ -5,8 +5,6 @@ MONGO_DBNAME = "eve"
 #MONGO_PASSWORD = "secret"
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
-PUBLIC_METHODS = ['GET', 'POST']
-PUBLIC_ITEM_METHODS = ['GET', 'PUT', 'PATCH']
 DATE_FORMAT = "%Y-%m-%d"
 IF_MATCH = False
 DEBUG = True
@@ -467,8 +465,8 @@ accountschema =  {
 }
 
 ephemeralRecord = {
-    #'public_methods': ['GET'],
-    #'public_item_methods': ['GET'],
+    'public_methods': ['GET'],
+    'public_item_methods': ['GET'],
     'item_title' : 'record',
     'additional_lookup': {
         'url': 'regex("[\w]+")',

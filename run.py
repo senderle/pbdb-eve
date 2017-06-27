@@ -1,7 +1,7 @@
 import bcrypt
 from eve import Eve
 from eve.auth import HMACAuth
-from flask import render_template, current_app as app
+from flask import render_template, request, current_app as app
 from hashlib import sha1
 import hmac
 import base64
@@ -15,8 +15,6 @@ import logging
 class HMACAuth(HMACAuth):
      def check_auth(self, userid, hmac_hash, headers, data, allowed_roles,
                    resource, method):
-         if userid == 'admin' and hmac_hash == hmac.new(str('1234567890'), str(data), sha1).hexdigest():
-             return True
          # use Eve's own db driver; no additional connections/resources are
          # used
          accounts = app.data.driver.db['accounts']
@@ -86,12 +84,15 @@ app = Eve(__name__, auth=HMACAuth, template_folder='templates')
 #    "secret_key": "1234567890"
 #}
 
+def hash(secret_key, userid):
+    hmac_hash = hmac.new(str(secret_key).encode('utf-8'), str(userid).encode('utf-8'), sha1).hexdigest()
+    return hmac_hash
+
 @app.route('/something')
 def something():
-    return render_template('something.html')
-#with app.test_request_context():
-#    x = post_internal('accounts', payload)
-#    #print(x)
+    req = 'POST'
+    return render_template('something.html', req=req)
+
 
 if __name__ == '__main__':
 
