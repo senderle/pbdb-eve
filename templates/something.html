@@ -7,8 +7,6 @@
   <body>
     <div id="dynamic-content"></div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha1.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-hex.js'></script>
     <script type="text/javascript" >
     var req = 'PATCH';
     var userid = '{{ userid }}'
@@ -23,9 +21,10 @@
     console.log(hash);
 
     var xhr = new XMLHttpRequest();
+    // 'test:432671e52cf6a0fb6cd16641b0061bf008a35c90' authorization hash and id
     function get() {
       xhr.open('GET', 'http://159.203.127.128:5000/accounts/', true);
-      xhr.setRequestHeader('Authorization', "'" + userid + ":" + hash + "'");
+      xhr.setRequestHeader('Authorization', userid + ":" + hash);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function () {
           // do something to response
@@ -36,7 +35,7 @@
 
     function post() {
       xhr.open('POST', 'http://159.203.127.128:5000/ephemeralRecord/', true);
-      xhr.setRequestHeader('Authorization', "\'" + userid + ':' + hash + "\'");
+      xhr.setRequestHeader('Authorization', userid + ":" + hash);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function () {
           // do something to response
@@ -47,15 +46,15 @@
     };
 
     function patch() {
-      xhr.open('PATCH', 'http://159.203.127.128:5000/ephemeralRecord/59515bab949e63000ba67635', true);
-      xhr.setRequestHeader('Authorization', 'test:432671e52cf6a0fb6cd16641b0061bf008a35c90');
+      xhr.open('PATCH', 'http://159.203.127.128:5000/ephemeralRecord/59528615949e63000bbd45da', true);
+      xhr.setRequestHeader('Authorization', userid + ":" + hash);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function () {
           // do something to response
         document.getElementById("dynamic-content").innerHTML = this.responseText;
         console.log(this.responseText);
       };
-      xhr.send('{"callNumber": "152", "archiveHoldingDocument": "London"}');
+      xhr.send(data);
     };
 
     if (req === 'GET') {
