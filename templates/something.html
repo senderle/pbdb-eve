@@ -6,12 +6,26 @@
   </head>
   <body>
     <div id="dynamic-content"></div>
-    <script type="text/javascript">
-    var req = '{{ req }}';
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha1.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-hex.js'></script>
+    <script type="text/javascript" >
+    var req = 'PATCH';
+    var userid = '{{ userid }}'
+    var hmac_hash = '{{ hmac_hash }}'
+    var data = '{{ data|tojson }}'
+    var key = '12345';
+
+    userid = encodeURIComponent(userid)
+    key = encodeURIComponent(key)
+
+    var hash = CryptoJS.HmacSHA1(userid, key).toString(CryptoJS.enc.Hex)
+    console.log(hash);
+
     var xhr = new XMLHttpRequest();
     function get() {
-      xhr.open('GET', 'http://159.203.127.128:5000/ephemeralRecord/', true);
-      xhr.setRequestHeader('Authorization', 'test:432671e52cf6a0fb6cd16641b0061bf008a35c90');
+      xhr.open('GET', 'http://159.203.127.128:5000/accounts/', true);
+      xhr.setRequestHeader('Authorization', "'" + userid + ":" + hash + "'");
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function () {
           // do something to response
@@ -22,14 +36,14 @@
 
     function post() {
       xhr.open('POST', 'http://159.203.127.128:5000/ephemeralRecord/', true);
-      xhr.setRequestHeader('Authorization', 'test:432671e52cf6a0fb6cd16641b0061bf008a35c90');
+      xhr.setRequestHeader('Authorization', "\'" + userid + ':' + hash + "\'");
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onload = function () {
           // do something to response
         document.getElementById("dynamic-content").innerHTML = this.responseText;
         console.log(this.responseText);
       };
-      xhr.send('{"callNumber": "122", "archiveHoldingDocument": "London"}');
+      xhr.send(data);
     };
 
     function patch() {

@@ -84,14 +84,17 @@ app = Eve(__name__, auth=HMACAuth, template_folder='templates')
 #    "secret_key": "1234567890"
 #}
 
-def hash(secret_key, userid):
+def hashing(secret_key, userid):
     hmac_hash = hmac.new(str(secret_key).encode('utf-8'), str(userid).encode('utf-8'), sha1).hexdigest()
     return hmac_hash
 
 @app.route('/something')
 def something():
-    req = 'POST'
-    return render_template('something.html', req=req)
+    userid = 'test'
+    secret_key = '12345'
+    hmac_hash = hashing(secret_key, userid)
+    data = {'callNumber': '132', 'archiveHoldingDocument': 'London'} #dict??
+    return render_template('something.html', userid=userid, data=data)
 
 
 if __name__ == '__main__':
