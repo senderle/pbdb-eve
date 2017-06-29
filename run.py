@@ -3,11 +3,16 @@ from eve import Eve
 from eve.auth import HMACAuth
 from flask import render_template, request, current_app as app
 from hashlib import sha1
+from eve.io.mongo import Validator
 import hmac
 import base64
 import logging
 #from eve.methods.post import post_internal
 
+class MyValidator(Validator):
+    def _validate_documentation(self, documentation, field, value):
+        if documentation:
+            return 
 
 #bcrypt.hashpw(password, account['password'])
 
@@ -79,7 +84,7 @@ def oplog_extras(resource, entries):
 #    with app.app_context():
 
 #app = Eve(auth=HMACAuth)
-app = Eve(__name__, auth=HMACAuth, template_folder='templates')
+app = Eve(__name__, auth=HMACAuth, template_folder='templates', validator=MyValidator)
 #app.on_insert_accounts += create_user
 #app.on_post_GET += log_every_get
 #app.on_post_POST += log_every_post
