@@ -8,19 +8,16 @@
     <div id="dynamic-content"></div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js'></script>
     <script type="text/javascript" >
-    var req = 'PATCH';
+    var req = 'POST';
     var userid = '{{ userid }}'
-    var hmac_hash = '{{ hmac_hash }}'
-    var data = '{{ data|tojson }}'
+    var data = '{{ data|tojson }}';
     var key = '12345';
 
-    userid = encodeURIComponent(userid)
-    key = encodeURIComponent(key)
-
-    var hash = CryptoJS.HmacSHA1(userid, key).toString(CryptoJS.enc.Hex)
+    var hash = CryptoJS.HmacSHA1(data, key).toString(CryptoJS.enc.Hex)
     console.log(hash);
 
     var xhr = new XMLHttpRequest();
+    //59528615949e63000bbd45da - id for document
     // 'test:432671e52cf6a0fb6cd16641b0061bf008a35c90' authorization hash and id
     function get() {
       xhr.open('GET', 'http://159.203.127.128:5000/accounts/', true);

@@ -25,11 +25,20 @@ class HMACAuth(HMACAuth):
             lookup['roles'] = {'$in': allowed_roles}
          if user:
              secret_key = user['secret_key']
-        #     hashed_key = user['secret_key']
-        #     secret_key = bcrypt.hashpw(hashed_key.encode('utf-8'), user['salt'])
          # in this implementation we only hash request data, ignoring the
          # headers.
-         return user and  hmac.new(str(secret_key).encode('utf-8'), str(userid).encode('utf-8'), sha1).hexdigest() == hmac_hash
+         #validator = hmac.new(str(secret_key).encode('utf-8'), None, sha1)
+         #validator.update(str(data).encode('utf-8'))
+
+         #print(secret_key)
+         #print(str(secret_key).encode('utf-8'))
+         #print(data)
+         #print(str(data).encode('utf-8'))
+         #print(hmac.new(str(secret_key).encode('utf-8'), str(data).encode('utf-8'), sha1).hexdigest())
+         #print(validator.hexdigest())
+         #print(hmac_hash)
+
+         return user and  hmac.new(str(secret_key).encode('utf-8'), data, sha1).hexdigest() == hmac_hash
 
 
 def create_user(documents):
@@ -84,16 +93,12 @@ app = Eve(__name__, auth=HMACAuth, template_folder='templates')
 #    "secret_key": "1234567890"
 #}
 
-def hashing(secret_key, userid):
-    hmac_hash = hmac.new(str(secret_key).encode('utf-8'), str(userid).encode('utf-8'), sha1).hexdigest()
-    return hmac_hash
 
 @app.route('/something')
 def something():
     userid = 'test'
     secret_key = '12345'
-    hmac_hash = hashing(secret_key, userid)
-    data = {'callNumber': '132', 'archiveHoldingDocument': 'London'} #dict??
+    data = {'callNumber': '183'}
     return render_template('something.html', userid=userid, data=data)
 
 
