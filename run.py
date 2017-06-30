@@ -12,7 +12,10 @@ import logging
 class MyValidator(Validator):
     def _validate_documentation(self, documentation, field, value):
         if documentation:
-            return 
+            return
+    def _validate_formType(self, formType, field, value):
+        if formType:
+            return
 
 #bcrypt.hashpw(password, account['password'])
 
@@ -34,7 +37,6 @@ class HMACAuth(HMACAuth):
          # headers.
          #validator = hmac.new(str(secret_key).encode('utf-8'), None, sha1)
          #validator.update(str(data).encode('utf-8'))
-
          #print(secret_key)
          #print(str(secret_key).encode('utf-8'))
          #print(data)
