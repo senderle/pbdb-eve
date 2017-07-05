@@ -1,12 +1,13 @@
 import bcrypt
 from eve import Eve
 from eve.auth import HMACAuth
-from flask import render_template, request, current_app as app
+from flask import render_template, render_template_string, request, current_app as app
 from hashlib import sha1
 from eve.io.mongo import Validator
 import hmac
 import base64
 import logging
+import json
 #from eve.methods.post import post_internal
 
 class MyValidator(Validator):
@@ -101,12 +102,19 @@ app = Eve(__name__, auth=HMACAuth, template_folder='templates', validator=MyVali
 #}
 
 
-@app.route('/something')
+@app.route('/form')
 def something():
-    userid = 'test'
-    secret_key = '12345'
-    data = {'callNumber': '183'}
-    return render_template('something.html', userid=userid, data=data)
+    return render_template('form.html')
+
+@app.route('/main')
+def main():
+    return render_template('main.js')
+
+@app.route('/schemajson')
+def render_schema_json():
+    with open('schema.py') as f:
+        schemajson = json.dumps(f.read())
+    return render_template_string(schemajson)
 
 
 if __name__ == '__main__':
