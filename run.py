@@ -8,7 +8,6 @@ import hmac
 import base64
 import logging
 import json
-#from eve.methods.post import post_internal
 
 class MyValidator(Validator):
     def _validate_documentation(self, documentation, field, value):
@@ -17,8 +16,6 @@ class MyValidator(Validator):
     def _validate_formType(self, formType, field, value):
         if formType:
             return
-
-#bcrypt.hashpw(password, account['password'])
 
 ## HMAC Auth ###
 class HMACAuth(HMACAuth):
@@ -82,9 +79,6 @@ def oplog_extras(resource, entries):
     for entry in entries:
         entry['extra'] = {'r': 'resource'}
 
-#to set up app context:
-#def test_connection(self, resource, method):
-#    with app.app_context():
 
 #app = Eve(auth=HMACAuth)
 app = Eve(__name__, auth=HMACAuth, template_folder='templates', validator=MyValidator)
@@ -94,13 +88,6 @@ app = Eve(__name__, auth=HMACAuth, template_folder='templates', validator=MyVali
 #app.on_post_PATCH += log_every_patch
 #app.on_post_PUT += log_every_put
 #app.on_post_DELETE += log_every_delete
-#app.on_oplog_push += oplog_extras
-#payload = {
-#    "userid": "admin",
-#    "roles": ["admin"],
-#    "secret_key": "1234567890"
-#}
-
 
 @app.route('/form')
 def something():
@@ -129,9 +116,6 @@ if __name__ == '__main__':
         '[in %(filename)s:%(lineno)d] -- ip: %(clientip)s, '
         'url: %(url)s, method:%(method)s'))
 
-    # the default log level is set to WARNING, so
-    # we have to explictly set the logging level
-    # to INFO to get our custom message logged.
     app.logger.setLevel(logging.INFO)
 
     # append the handler to the default application logger

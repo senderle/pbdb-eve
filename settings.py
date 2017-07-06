@@ -33,9 +33,6 @@ ephemeralRecord = {
     'schema': schema
 }
 
-shows = {
-    'url': 'ephemeralRecord/<regex("[\w]+"):callNumber>/shows'
-}
 
 accounts = {
     'item_title' : 'account',
