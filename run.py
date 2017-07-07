@@ -8,6 +8,7 @@ import hmac
 import base64
 import logging
 import json
+from schema import schema
 
 class MyValidator(Validator):
     def _validate_documentation(self, documentation, field, value):
@@ -75,9 +76,6 @@ def log_every_delete(resource, request, payload):
     # custom INFO-level message is sent to the log file
     app.logger.info('We just answered to a DELETE request!')
 
-def oplog_extras(resource, entries):
-    for entry in entries:
-        entry['extra'] = {'r': 'resource'}
 
 
 #app = Eve(auth=HMACAuth)
@@ -97,11 +95,10 @@ def something():
 def main():
     return render_template('main.js')
 
-@app.route('/schemajson')
+@app.route('/schema.json')
 def render_schema_json():
-    with open('schema.py') as f:
-        schemajson = json.dumps(f.read())
-    return render_template_string(schemajson)
+    schema_json = json.dumps(schema)
+    return render_template_string(schema_json)
 
 
 if __name__ == '__main__':
