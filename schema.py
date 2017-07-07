@@ -8,9 +8,8 @@ IF_MATCH = False
 DEBUG = True
 
 #PYTHON SCHEMA
-
 schema = {
-    'ephemeralRecord': {
+    'ephemeralRecord' : {
         'type': 'dict',
         'schema': {
             'archiveHoldingDocument': {
@@ -56,7 +55,8 @@ schema = {
             #}
             'documentType': {
                 'type': 'string',
-                'allowed': ['Playbill', 'London Stage',
+                'formType': 'select',
+                'allowed': ['', 'Playbill', 'London Stage',
                             'Yorkshire Stage', 'Other Compendia',
                             'Periodical Advertisement', 'Periodical Review'],
                 'maxlength': 200,
@@ -212,7 +212,8 @@ schema = {
                                     },
                                     'occasionType': {
                                         'type': 'string',
-                                        'allowed': ["Command Performance",
+                                        'formType': 'select',
+                                        'allowed': ["", "Command Performance",
                                                     "Benefit Performance",
                                                     "Charitable Benefit Performance",
                                                     "Occasional Performance"],
