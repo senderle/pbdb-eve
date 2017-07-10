@@ -24,11 +24,10 @@ ephemeralRecord = {
     'public_methods': ['GET'],
     'public_item_methods': ['GET'],
     'item_title' : 'record',
-    'additional_lookup': {
-        'url': 'regex("[\w]+")',
-        #'url': 'regex("[a-z0-9]{14}")',
-        'field': 'callNumber',
-    },
+    #'additional_lookup': {
+    #    'url': 'regex("[\w]+")',
+    #    'field': 'callNumber',
+    #},
     'allowed_roles': ['superuser', 'admin', 'user'],
     'schema': schema
 }
@@ -55,9 +54,5 @@ accounts = {
 DOMAIN = {
     'ephemeralRecord': ephemeralRecord,
     'accounts': accounts,
-#    'oplog' : {
-#        'url': 'log',
-#        'datasource': {
-#            'source': 'myapilog'
-#            }
+
     }
